@@ -1,22 +1,30 @@
-import httpx
-from typing import Any, Dict
+import requests
 import os
+from dotenv import load_dotenv
 
-# Assuming you've loaded SPOONACULAR_API_KEY as shown earlier
-SPOONACULAR_API_KEY = os.getenv("SPOONACULAR_API_KEY")
-BASE_URL = "https://api.spoonacular.com"
+load_dotenv()
 
-async def fetch_recipe(ingredients: str) -> Dict[str, Any]:
-    """
-    Fetch a recipe based on ingredients.
-    :param ingredients: A list of ingredients as a string.
-    :return: JSON response from the Spoonacular API.
-    """
-    async with httpx.AsyncClient() as client:
-        params = {
-            "apiKey": SPOONACULAR_API_KEY,
-            "ingredients": ingredients,
-            "number": 1  # Number of recipes to fetch
-        }
-        response = await client.get(f"{BASE_URL}/recipes/findByIngredients", params=params)
-        return response.json()
+API_KEY = os.getenv("SPOONACULAR_API_KEY")
+
+def search_recipes(diet, includeIngredients, type, intolerances, instructionsRequired):
+    url = "https://api.spoonacular.com/recipes/complexSearch"
+    params = {
+        "apiKey": API_KEY,
+        "diet": diet,
+        "includeIngredients": includeIngredients,
+        "type": type,
+        "intolerances": intolerances,
+        "instructionsRequired": instructionsRequired,
+        "addRecipeInformation": True  # To include detailed information directly
+    }
+    response = requests.get(url, params=params)
+    return response.json()
+
+def get_analyzed_recipe_instructions(id, stepBreakdown=True):
+    url = f"https://api.spoonacular.com/recipes/{id}/analyzedInstructions"
+    params = {
+        "apiKey": API_KEY,
+        "stepBreakdown": stepBreakdown
+    }
+    response = requests.get(url, params=params)
+    return response.json()
