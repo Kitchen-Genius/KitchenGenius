@@ -15,48 +15,12 @@ export default function MainP2(props) {
   };
 
   useEffect(() => {
-    axios.get('../../csv_files/10recipes.json')
-    .then((response) => {
-      // Handle successful response
-      setRecipeJson(response.data);
-    })
-    .catch((error) => {
-      // Handle error
-      console.error('Error fetching JSON:', error);
-    });
+    setRecipeJson(Json);
     console.log(recipeJson);
 
     const putRecipeCard = () => {
       Object.entries(recipeJson).forEach(([key, value]) => {
-        let shouldRender = true;
-        let countIngrediets = 0;
-        Object.entries(value.ingredients).forEach(([key2, value2]) => { 
-              Object.entries(props.ingredientList).forEach(([key3, value3]) => { 
-                  if(value3.name === value2.name) {
 
-                      countIngrediets += 1;
-                      console.log(countIngrediets);
-
-                  }
-
-
-              });
-        });
-
-
-          if (props.ingredientList.hasOwnProperty('Vegetarian') && value.vegetarian === false) { 
-            shouldRender = false;
-          }
-
-          if (props.ingredientList.hasOwnProperty('veryHealthy') && value.veryHealthy === false) {
-            shouldRender = false;
-          }
-
-          if (props.ingredientList.hasOwnProperty('dairyFree') && value.dairyFree === false) {
-            shouldRender = false;
-          }
-          if (countIngrediets > 1){
-          if (shouldRender) {
             setSelector((prevSelector) => [
               ...prevSelector,
               <>
@@ -74,11 +38,7 @@ export default function MainP2(props) {
                 </div>
               </>
             ]);
-          }
-        }
         
-
-
       });
     };
 
