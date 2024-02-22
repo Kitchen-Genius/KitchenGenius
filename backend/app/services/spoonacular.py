@@ -1,30 +1,60 @@
+import httpx
 import requests
 import os
 from dotenv import load_dotenv
+import json
+
 
 load_dotenv()
 
 API_KEY = os.getenv("SPOONACULAR_API_KEY")
 
-def search_recipes(diet, includeIngredients, type, intolerances, instructionsRequired):
+def validate_params(category, value, filename):
+    with open(f'app/data/{filename}.json') as file:
+        data = json.load(file)
+    return value in data[category]
+
+async def search_recipes(diet, includeIngredients, type, intolerances, instructionsRequired=True, number=1):
+    if not validate_params('diets', diet, 'diets') or not validate_params('meal_types', type, 'meal_types') or not validate_params('intolerances', intolerances, 'intolerances'):
+        return {"error": "Invalid diet, type, or intolerance parameter"}
+
     url = "https://api.spoonacular.com/recipes/complexSearch"
-    params = {
+    query = {
         "apiKey": API_KEY,
         "diet": diet,
         "includeIngredients": includeIngredients,
         "type": type,
         "intolerances": intolerances,
         "instructionsRequired": instructionsRequired,
-        "addRecipeInformation": True  # To include detailed information directly
+        "number": number
     }
-    response = requests.get(url, params=params)
-    return response.json()
+
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url, params=query)
+    data = response.json()
+
+    # Save the response locally
+    save_data_locally(data, f"{type}_recipes.json")
+    
+    return data
+
+def save_data_locally(data, filename):
+    with open(f'app/jsons/{filename}', 'w') as file:
+        json.dump(data, file, indent=4)
 
 def get_analyzed_recipe_instructions(id, stepBreakdown=True):
+    if not isinstance(id, int):
+        return {"error": "Invalid recipe ID"}
+
     url = f"https://api.spoonacular.com/recipes/{id}/analyzedInstructions"
-    params = {
+    query = {
         "apiKey": API_KEY,
         "stepBreakdown": stepBreakdown
     }
-    response = requests.get(url, params=params)
-    return response.json()
+    response = requests.get(url, params=query)
+    data = response.json()
+
+    # Save the response locally
+    save_data_locally(data, f"recipe_{id}_instructions.json")
+    
+    return data

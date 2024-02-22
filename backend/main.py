@@ -14,9 +14,15 @@ SPOONACULAR_API_KEY = os.getenv("SPOONACULAR_API_KEY")
 
 app = FastAPI()
 
+# List of origins allowed to make requests to this API
+origins = [
+    "http://localhost:3000",  # React's default development port
+    "https://yourproductiondomain.com",  # Adjust for production
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust in production
+    allow_origins=origins,  # Adjust in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -40,10 +46,11 @@ async def get_recipes(
     includeIngredients: str = None,
     type: str = None,
     intolerances: str = None,
-    instructionsRequired: bool = True
+    instructionsRequired: bool = True,
+    number: int = 1
 ):
     try:
-        recipes = search_recipes(diet=diet, includeIngredients=includeIngredients, type=type, intolerances=intolerances, instructionsRequired=instructionsRequired)
+        recipes = await search_recipes(diet=diet, includeIngredients=includeIngredients, type=type, intolerances=intolerances, instructionsRequired=instructionsRequired, number=1)
         return recipes
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
