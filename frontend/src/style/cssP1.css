@@ -67,7 +67,7 @@
 .Main {
     display: flex;
     width: 393px;
-    height: 670px;
+    height: 692px;
     flex-wrap: wrap;
     align-content: flex-start;
 
@@ -181,7 +181,6 @@
 
 }
 .ToggleButtons2 {
-    height: 30px;
     
 
 }
@@ -191,7 +190,6 @@
     width: 141px;
     background-color: #0072B2;
     margin-right: 14px;
-    margin-top: 50px;
 
 }
 

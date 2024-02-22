@@ -58,9 +58,9 @@ export default function MainP1() {
               ingredientName !== 'lunch' &&
               ingredientName !== 'breakfast' &&
               ingredientName !== 'specialRequests' &&
-              ingredientName !== 'Nut_free' &&
+              ingredientName !== 'veryHealthy' &&
               ingredientName !== 'Low_calories' &&
-              ingredientName !== 'Lactose_free' &&
+              ingredientName !== 'dairyFree' &&
               ingredientName !== 'Gluten_free' &&
               ingredientName !== 'Vegetarian' &&
               ingredientName !== 'High_protein' ? (

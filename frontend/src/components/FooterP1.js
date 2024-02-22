@@ -4,18 +4,20 @@ import { Home, Search, Favorite, Settings } from '@mui/icons-material';
 import '../style/cssP1.css';
 
 export default function FooterP1() {
+
   return (
     <div className="Footer">
       <Link to="/components/Home">
-        <div className="icon">
+        <div className="icon" >
           <Home fontSize="small" color="primary" />
         </div>
       </Link>
-      <Link to="/search">
+      <Link to="/components/Page2Components/HomeP2">     
         <div className="icon">
           <Search fontSize="small" color="action" />
         </div>
-      </Link>
+    </Link>
+     
       <Link to="/favorite">
         <div className="icon">
           <Favorite fontSize="small" color="error" />

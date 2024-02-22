@@ -9,18 +9,18 @@ const ToggleButtons2 = (props) => {
   const [selectedButtons, setSelectedButtons] = useState([]);
 
   const buttonIcons = {
-    Nut_free: <AppleIcon />,
+    veryHealthy: <AppleIcon />,
     Low_calories: <LocalPizzaIcon />,
-    Lactose_free: <EmojiFoodBeverageIcon />,
+    dairyFree: <EmojiFoodBeverageIcon />,
     Gluten_free: <LocalPizzaIcon />,
     Vegetarian: <EcoIcon />,
     High_protein: <FitnessCenterIcon />,
   };
 
   const buttonColors = {
-    Nut_free: 'rgba(240, 240, 240, 1)',
+    veryHealthy: 'rgba(240, 240, 240, 1)',
     Low_calories: 'rgba(240, 240, 240, 1)',
-    Lactose_free: 'rgba(240, 240, 240, 1)',
+    dairyFree: 'rgba(240, 240, 240, 1)',
     Gluten_free: 'rgba(240, 240, 240, 1)',
     Vegetarian: 'rgba(240, 240, 240, 1)',
     High_protein: 'rgba(240, 240, 240, 1)',

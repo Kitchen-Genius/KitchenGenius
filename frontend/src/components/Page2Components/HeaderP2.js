@@ -11,34 +11,39 @@ export default function HeaderP2(props) {
   
     useEffect(() => {
       const receiveIntoFunc = () => {
-        const intolerances = Object.keys(props.ingredientList).filter(
-          (ingredient) =>
-            [
-              'High_protein',
-              'Low_calories',
-              'Vegetarian',
-              'Lactose_free',
-              'Gluten_free',
-              'Nut_free',
-            ].includes(ingredient)
-        );
-  
-        SetIntolerances(intolerances);
-
-        const ingredients = Object.entries(props.ingredientList)
-        .filter(([, value]) => typeof value === 'object') // Filter based on the type of value
-        .map(([key]) => key); // Map back to the keys
-  
-      SetIngredients(ingredients);
-    };
-    const level = props.ingredientList.hasOwnProperty('levelOfCooking')
-      ? props.ingredientList.levelOfCooking
-      : null; // Set level to null if levelOfCooking doesn't exist
-
-    // Only set Level state if levelOfCooking is present
-    if (level !== null) {
-      SetLevel(level);
-    }
+        // Check if props.ingredientList is defined and not null
+        if (props.ingredientList && typeof props.ingredientList === 'object') {
+          const intolerances = Object.keys(props.ingredientList).filter(
+            (ingredient) =>
+              [
+                'High_protein',
+                'Low_calories',
+                'Vegetarian',
+                'Lactose_free',
+                'Gluten_free',
+                'Nut_free',
+              ].includes(ingredient)
+          );
+    
+          SetIntolerances(intolerances);
+    
+          const ingredients = Object.entries(props.ingredientList)
+            .filter(([, value]) => typeof value === 'object')
+            .map(([key]) => key);
+    
+          SetIngredients(ingredients);
+        }
+      };
+    
+      const level =
+        props.ingredientList && props.ingredientList.hasOwnProperty('levelOfCooking')
+          ? props.ingredientList.levelOfCooking
+          : null;
+    
+      if (level !== null) {
+        SetLevel(level);
+      }
+    
       receiveIntoFunc();
     }, [props.ingredientList]);
   
@@ -92,11 +97,9 @@ export default function HeaderP2(props) {
            </div>
           <div className="Level"> 
           <h3>Level</h3>
-           
               <p style={buttonStyle}>
                 {Level}
               </p>
-            
              </div>
         </div>
       </>
