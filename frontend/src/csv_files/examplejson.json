@@ -1,0 +1,39 @@
+[
+    {
+5 spice powder: {id: '1002002', name: '5 spice powder'}
+
+
+High_protein: true
+
+
+Low_calories: true
+
+
+Vegetarian: true
+
+
+adobo sauce: {id: '6979', name: 'adobo sauce'}
+
+
+apple cider: {id: '1009016', name: 'apple cider'}
+
+
+beets: {id: '11080', name: 'beets'}
+
+
+caramels: {id: '19074', name: 'caramels'}
+
+
+dairyFree: true
+
+
+levelOfCooking: "Expert"
+
+
+lunch: true
+
+
+
+   }
+
+]
