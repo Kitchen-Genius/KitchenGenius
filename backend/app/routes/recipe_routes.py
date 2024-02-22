@@ -9,3 +9,8 @@ async def search_recipes(diet: str, includeIngredients: str, type: str, intolera
     if "error" in data:
         raise HTTPException(status_code=400, detail=data["error"])
     return data
+
+@router.get("/processed-recipes/")
+async def get_processed_recipes(diet: str, includeIngredients: str, type: str, intolerances: str):
+    processed_recipes = await spoonacular_service(diet, includeIngredients, type, intolerances)
+    return processed_recipes
