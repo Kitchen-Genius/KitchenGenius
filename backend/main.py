@@ -19,7 +19,7 @@ app = FastAPI()
 # List of origins allowed to make requests to this API
 origins = [
     "http://localhost:3000",  # React's default development port
-    "https://yourproductiondomain.com",  # Adjust for production
+    "https://kitchen-genius-e4758708fa62.herokuapp.com",  # Adjust for production
 ]
 
 app.add_middleware(
