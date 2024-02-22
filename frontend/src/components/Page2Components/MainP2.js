@@ -15,7 +15,7 @@ export default function MainP2(props) {
   };
 
   useEffect(() => {
-    axios.get('../../csv_files/10recipes.json')
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/recipes`)
     .then((response) => {
       // Handle successful response
       setRecipeJson(response.data);
