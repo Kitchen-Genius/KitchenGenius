@@ -4,12 +4,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 # from app.routes.ingredients_routes import router as ingredients_router  # Adjust import path as necessary
-from app.services.spoonacular import search_recipes, process_and_save_recipes
+
 # from app.database.db import client
 from dotenv import load_dotenv
 import os
-
-
+import sys
+print(f"Current working directory: {os.getcwd()}")
+print(f"Python path: {sys.path}")
 
 load_dotenv()
 SPOONACULAR_API_KEY = os.getenv("SPOONACULAR_API_KEY")
@@ -41,6 +42,9 @@ app.add_middleware(
 # async def shutdown_event():
     # Example: Close database connection (if needed)
 #     await client.close()
+
+from app.services.spoonacular import search_recipes, process_and_save_recipes
+
 
 @app.get("/recipes/")
 async def get_recipes(
