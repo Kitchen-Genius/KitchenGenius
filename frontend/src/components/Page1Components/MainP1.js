@@ -125,8 +125,15 @@ export default function MainP1() {
       alert('Please insert ingredients and choose from the menu');
       return;
     }
+    let apiBaseUrl;
 
-    const serverEndpoint = '/api/saveIngredients';
+    if (window.location.hostname === "localhost") {
+        apiBaseUrl = "http://localhost:8000";
+    } else {
+        apiBaseUrl = "https://kitchen-genius.herokuapp.com";
+    }
+
+    const serverEndpoint = `${apiBaseUrl}/api/saveIngredients`;
 
     fetch(serverEndpoint, {
       method: 'POST',

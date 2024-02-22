@@ -1,8 +1,10 @@
 # main.py
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 # from app.routes.ingredients_routes import router as ingredients_router  # Adjust import path as necessary
-from app.services.spoonacular import search_recipes
+from app.services.spoonacular import search_recipes, process_and_save_recipes
 # from app.database.db import client
 from dotenv import load_dotenv
 import os
@@ -17,7 +19,7 @@ app = FastAPI()
 # List of origins allowed to make requests to this API
 origins = [
     "http://localhost:3000",  # React's default development port
-    "https://yourproductiondomain.com",  # Adjust for production
+    "https://kitchen-genius-e4758708fa62.herokuapp.com",  # Adjust for production
 ]
 
 app.add_middleware(
@@ -54,3 +56,24 @@ async def get_recipes(
         return recipes
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/processed-recipes/")
+async def get_processed_recipes(
+    diet: str = None,
+    includeIngredients: str = None,
+    type: str = None,
+    intolerances: str = None,
+    instructionsRequired: bool = True,
+    number: int = 1
+):
+    try:
+        processed_recipes = await process_and_save_recipes(diet=diet, includeIngredients=includeIngredients, type=type, intolerances=intolerances, instructionsRequired=instructionsRequired, number=number)
+        return processed_recipes
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+app.mount("/static", StaticFiles(directory="../frontend/build"), name="static")
+
+@app.get("/{full_path:path}")
+async def catch_all(full_path: str):
+    return FileResponse('../frontend/build/index.html')
