@@ -1,6 +1,8 @@
 # main.py
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 # from app.routes.ingredients_routes import router as ingredients_router  # Adjust import path as necessary
 from app.services.spoonacular import search_recipes, process_and_save_recipes
 # from app.database.db import client
@@ -69,3 +71,9 @@ async def get_processed_recipes(
         return processed_recipes
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+app.mount("/static", StaticFiles(directory="../frontend/build"), name="static")
+
+@app.get("/{full_path:path}")
+async def catch_all(full_path: str):
+    return FileResponse('../frontend/build/index.html')
