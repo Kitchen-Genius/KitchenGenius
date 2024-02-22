@@ -74,6 +74,6 @@ async def get_processed_recipes(
     
 app.mount("/static", StaticFiles(directory="../frontend/build"), name="static")
 
-@app.get("/{full_path:path}")
-async def catch_all(full_path: str):
-    return FileResponse('../frontend/build/index.html')
+@app.get("/{catchall:path}", include_in_schema=False)
+async def catch_all(catchall: str):
+    return FileResponse("frontend/build/index.html")
