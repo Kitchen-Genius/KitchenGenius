@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.kitchenIMG {
+
+    display: flex;
+    width: 100%;
+    margin-left: 10px;
+    margin-top: 7px;
+
+    
+}
+
+.lay_out {
+    width: 393px;
+    height: 852px;
+    margin: auto;
+
+}
+
+.Rectangle_gray_p2 {
+    display: flex;
+    width: 393px;
+    height: 66px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Bell_p2 {
+    margin-left: 9px;
+    width: 35px;
+    height: 35px;
+   
+
+}
+
+.Steven_square_p1 {
+    display: flex;
+    height: 66px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.Hader_text_p1{
+    font-size: 13px;
+    margin-right: 5px;
+
+
+}
+
+.Steven_pic_p1 {
+    margin-right: 20px;
+    width: 50px;
+    height: 50px;
+    background-image: url('../my_Images/steven_pic.png');
+    border-radius: 30px;
+
+}
+
+.TextP2 {
+
+        font-size: 22px;
+        display: flex;
+    margin-left: 10px;
+}
+
+.square_ingredients_p2 {
+
+    height: 177px;
+    width: 393px;
+    background-color: aqua;
+    display: flex;
+    overflow-y: auto;
+
+
+}
+
+
+
+
+
+.Intolerances_p2 p {
+    font-size: 15px;
+    margin-left: 10px;
+
+}
+
+.Ingredients_p2 p { 
+
+    font-size: 15px;
+    margin-left: 10px;
+
+}
