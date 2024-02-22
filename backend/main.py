@@ -72,7 +72,7 @@ async def get_processed_recipes(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-app.mount("/static", StaticFiles(directory="../frontend/build"), name="static")
+app.mount("/static", StaticFiles(directory="frontend/build/static"), name="static")
 
 @app.get("/{catchall:path}", include_in_schema=False)
 async def catch_all(catchall: str):
